@@ -122,4 +122,6 @@ class CurrentWeather extends React.PureComponent {
   }
 }
 
+// Component Styling
+
 export default CurrentWeather;

@@ -27,6 +27,7 @@ const AppContainer = styled.div`
   display: grid;
   grid-template-rows: 150px auto 20px;
   min-height: 100vh;
+  overflow: hidden;
 `;
 
 const Header = styled.header`
@@ -46,6 +47,7 @@ const Title = styled.h1`
 
 const Main = styled.main`
   font-size: 18px;
+  margin-bottom: 1rem;
 `;
 
 const Logo = styled.img`
