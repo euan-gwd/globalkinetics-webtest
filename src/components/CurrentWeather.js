@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import ForecastWeather from './ForecastWeather';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
@@ -121,7 +120,5 @@ class CurrentWeather extends React.PureComponent {
     );
   }
 }
-
-// Component Styling
 
 export default CurrentWeather;
