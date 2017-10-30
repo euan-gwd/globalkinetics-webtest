@@ -26,6 +26,7 @@ const AppContainer = styled.div`
   background: linear-gradient(to bottom, #a5cdfc 0%, #c9c9c9 100%);
   display: grid;
   grid-template-rows: 150px auto 20px;
+  box-sizing: border-box;
   min-height: 100vh;
   overflow: hidden;
 `;
