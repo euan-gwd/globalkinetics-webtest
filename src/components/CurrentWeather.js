@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import ForecastWeather from './ForecastWeather';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
@@ -21,9 +22,9 @@ class CurrentWeather extends React.PureComponent {
     };
   } //end constructor
 
-  getLocalWeather(position) {
-    let pos_lat = position.lat;
-    let pos_lon = position.lon;
+  getLocalWeather(crd) {
+    let pos_lat = crd.latitude;
+    let pos_lon = crd.longitude;
     fetch(`https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`)
       .then(res => res.json())
       .then(data => {
@@ -56,20 +57,29 @@ class CurrentWeather extends React.PureComponent {
       });
   } //end getLocalWeather
 
-  getPosition = () => {
-    fetch('https://api.wunderground.com/api/a856679be7a8710b/geolookup/q/autoip.json')
-      .then(res => res.json())
-      .then(data => {
-        let position = {
-          lat: data.location.lat,
-          lon: data.location.lon
-        };
-        this.getLocalWeather(position);
-      });
-  }; //end getPosition
+  getGeoPosition = () => {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    };
+
+    const success = pos => {
+      let crd = pos.coords;
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      this.getLocalWeather(crd);
+    };
+
+    const error = err => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    };
+
+    window.navigator.geolocation.getCurrentPosition(success, error, options);
+  }; //end getGeoPosition
 
   componentWillMount() {
-    this.getPosition();
+    this.getGeoPosition();
   } //end componentWillMount
 
   render() {

@@ -3,6 +3,24 @@ import logo from './logo.svg';
 import styled from 'styled-components';
 import CurrentWeather from '../components/CurrentWeather';
 
+class App extends React.PureComponent {
+  render() {
+    return (
+      <AppContainer>
+        <Header>
+          <Logo src={logo} alt="logo" />
+          <Title>Global Kinetics Web Test Weather App</Title>
+        </Header>
+        <Main>
+          <CurrentWeather />
+        </Main>
+        <Footer />
+      </AppContainer>
+    );
+  }
+}
+
+//Component Styling
 const AppContainer = styled.div`
   text-align: center;
   background: linear-gradient(to bottom, #a5cdfc 0%, #c9c9c9 100%);
@@ -46,22 +64,5 @@ const Logo = styled.img`
 const Footer = styled.footer`
   background-color: rgba(0, 0, 0, 0.5);
 `;
-
-class App extends React.PureComponent {
-  render() {
-    return (
-      <AppContainer>
-        <Header>
-          <Logo src={logo} alt="logo" />
-          <Title>Global Kinetics Web Test Weather App</Title>
-        </Header>
-        <Main>
-          <CurrentWeather />
-        </Main>
-        <Footer />
-      </AppContainer>
-    );
-  }
-}
 
 export default App;
