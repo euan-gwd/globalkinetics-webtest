@@ -7,19 +7,16 @@ import rainIcon from '../icons/icon-rain.svg';
 import './CurrentWeather.css';
 
 class CurrentWeather extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      city: '',
-      currenthumidity: '--',
-      currentTemp: '--',
-      currentFeels: '--',
-      currentWind: '--',
-      currentCondition: '',
-      currentIcon: '',
-      currentRain: '--'
-    };
-  } //end constructor
+  state = {
+    city: 'Searching...',
+    currenthumidity: '--',
+    currentTemp: 'Fetching Weather...',
+    currentFeels: '--',
+    currentWind: '--',
+    currentCondition: '',
+    currentIcon: '',
+    currentRain: '--'
+  }; //Initial State
 
   getLocalWeather(crd) {
     let pos_lat = crd.latitude;
@@ -93,7 +90,7 @@ class CurrentWeather extends React.PureComponent {
           </div>
           <div className="temperature-wrapper">
             <img src={temperatureIcon} alt="temperature icon" className="temperature_icon " />
-            <div className="temperature">{this.state.currentTemp || '--'}</div>
+            <div className="temperature">{this.state.currentTemp || 'Loading'}</div>
           </div>
           <div className="feels_like">{this.state.currentFeels || '--'}</div>
           <div className="wind-wrapper">
