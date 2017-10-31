@@ -1,54 +1,70 @@
 import React from 'react';
+import axios from 'axios';
 import FiveDayForecast from './FiveDayForecast';
 import './ForecastWeather.css';
 
 class ForecastWeather extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			date: '',
-			forecastArray: []
-		};
-	} //end constructor
+  state = {
+    date: '',
+    forecastArray: []
+  };
+  //end inital State
 
-	getWeatherForecast(position) {
-		let pos_lat = position.lat;
-		let pos_lon = position.lon;
-		fetch(`https://api.wunderground.com/api/a856679be7a8710b/forecast/q/${pos_lat},${pos_lon}.json`).then(res => res.json()).then(data => {
-			const weatherData = data.forecast.simpleforecast;
-			const forecastData = weatherData.forecastday;
-			this.setState({date: weatherData.date, forecastArray: forecastData});
-		}).catch(err => {
-			console.error('Fetch failed', err, err.message);
-		});
-	}; //end getWeatherForecast
+  getWeatherForecast(crd) {
+    let pos_lat = crd.latitude;
+    let pos_lon = crd.longitude;
+    axios
+      .get(`https://api.wunderground.com/api/a856679be7a8710b/forecast/q/${pos_lat},${pos_lon}.json`)
+      .then(res => {
+        const weatherData = res.data.forecast.simpleforecast;
+        const forecastData = weatherData.forecastday;
+        this.setState({ date: weatherData.date, forecastArray: forecastData });
+      })
+      .catch(err => {
+        console.error('Fetch failed', err, err.message);
+      });
+  } //end getWeatherForecast
 
-	getPosition = () => {
-		fetch('https://api.wunderground.com/api/a856679be7a8710b/geolookup/q/autoip.json').then(res => res.json()).then(data => {
-			let position = {
-				lat: data.location.lat,
-				lon: data.location.lon
-			};
-			this.getWeatherForecast(position);
-		});
-	} //end getPosition
+  getGeoPosition = () => {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    };
 
-	componentDidMount() {
-		this.getPosition();
-	} //end componentDidMount
+    const success = pos => {
+      let crd = pos.coords;
+      this.getLocalWeather(crd);
+    };
 
-	render() {
-		return (
-			<div className="forecast_weather_body">
-				<div className="">
-					<div className="fct_wrapper">
-						{this.state.forecastArray.map((item, index) => {
-							return (<FiveDayForecast thread={item} key={index}/>);
-						})}</div>
-				</div>
-			</div>
-		);
-	}
+    const error = err => {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    };
+
+    window.navigator.geolocation.getCurrentPosition(success, error, options);
+  }; //end getGeoPosition
+
+  componentWillMount() {
+    if (navigator.geolocation) {
+      this.getGeoPosition();
+    } else {
+      alert('Your browser does not support Geolocation!');
+    }
+  } //end componentWillMount
+
+  render() {
+    return (
+      <div className="forecast_weather_body">
+        <div className="">
+          <div className="fct_wrapper">
+            {this.state.forecastArray.map((item, index) => {
+              return <FiveDayForecast thread={item} key={index} />;
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ForecastWeather;
