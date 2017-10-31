@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import ForecastWeather from './ForecastWeather';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
@@ -21,10 +22,10 @@ class CurrentWeather extends React.PureComponent {
   getLocalWeather(crd) {
     let pos_lat = crd.latitude;
     let pos_lon = crd.longitude;
-    fetch(`https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`)
-      .then(res => res.json())
-      .then(data => {
-        let weatherData = data.current_observation;
+    axios
+      .get(`https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`)
+      .then(res => {
+        let weatherData = res.data.current_observation;
         let currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
         let currentFeels = `Feels: ${weatherData.feelslike_c}°C / ${weatherData.feelslike_f}°F`;
         let icon = `${weatherData.icon}.svg`;
