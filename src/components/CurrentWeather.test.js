@@ -35,13 +35,9 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of current-weather_icon', () => {
-    const el = shallow(<CurrentWeather />);
-    expect(el.find('.current-weather_icon').type()).toEqual('img');
+    const imageWrapper = shallow(<CurrentWeather />);
+    expect(imageWrapper.find('.current-weather_icon').type()).toEqual('img');
   });
-
-  // it('should render an img element with the css class of current-weather_icon', () => {
-  //   expect(wrapper.find('.current-weather_icon').exists()).toBe(true);
-  // });
 
   it('should render a div element with the css class of current_conditions', () => {
     expect(wrapper.find('.current_conditions').exists()).toBe(true);
@@ -52,7 +48,8 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of temperature_icon', () => {
-    expect(wrapper.find('.temperature_icon').exists()).toBe(true);
+    const imageWrapper = shallow(<CurrentWeather />);
+    expect(imageWrapper.find('.temperature_icon').type()).toEqual('img');
   });
 
   it('should render a div element with the css class of temperature', () => {
@@ -68,7 +65,8 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of wind_icon', () => {
-    expect(wrapper.find('.wind_icon').exists()).toBe(true);
+    const imageWrapper = shallow(<CurrentWeather />);
+    expect(imageWrapper.find('.wind_icon').type()).toEqual('img');
   });
 
   it('should render a div element with the css class of wind', () => {
@@ -80,7 +78,8 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of rain_icon', () => {
-    expect(wrapper.find('.rain_icon').exists()).toBe(true);
+    const imageWrapper = shallow(<CurrentWeather />);
+    expect(imageWrapper.find('.rain_icon').type()).toEqual('img');
   });
 
   it('should render a div element with the css class of rain', () => {
@@ -92,7 +91,8 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of humidity_icon', () => {
-    expect(wrapper.find('.humidity_icon').exists()).toBe(true);
+    const imageWrapper = shallow(<CurrentWeather />);
+    expect(imageWrapper.find('.humidity_icon').type()).toEqual('img');
   });
 
   it('should render a div element with the css class of humidity', () => {
