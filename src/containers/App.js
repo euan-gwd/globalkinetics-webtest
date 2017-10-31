@@ -1,5 +1,7 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
+// eslint-disable-next-line
+import fetch from "isomorphic-fetch";
+// above line is a workaround to get jest to work correctly with fetch.
 import logo from './logo.svg';
 import styled from 'styled-components';
 import CurrentWeather from '../components/CurrentWeather';
