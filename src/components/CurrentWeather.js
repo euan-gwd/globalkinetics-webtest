@@ -46,7 +46,7 @@ class CurrentWeather extends React.PureComponent {
           currentCondition: weatherData.weather,
           currentIcon: iconUrl,
           currentRain: currentRain,
-          currentTime: weatherData.local_time_rfc822
+          currentTime: weatherData.observation_time
         });
       })
       .catch(err => {
@@ -87,7 +87,7 @@ class CurrentWeather extends React.PureComponent {
     return (
       <div className="current_weather_body">
         <div className="current_city">{this.state.city}</div>
-        <div className="current_time">As of {this.state.currentTime}</div>
+        <div className="current_time">{this.state.currentTime}</div>
         <div className="container">
           <div className="current_conditions-wrapper">
             <img src={this.state.currentIcon} alt={this.state.currentIcon} className="icon-weather" />

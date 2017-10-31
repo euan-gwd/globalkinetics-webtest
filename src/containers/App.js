@@ -44,6 +44,7 @@ const Title = styled.h1`
   font-style: normal;
   font-weight: 400;
   font-size: 1.5rem;
+  margin: 1rem 0 0;
 `;
 
 const Main = styled.main`
@@ -52,6 +53,7 @@ const Main = styled.main`
 `;
 
 const Logo = styled.img`
+  margin-top: 1rem;
   height: 60px;
   animation: spin infinite 20s linear;
   @keyframes spin {
