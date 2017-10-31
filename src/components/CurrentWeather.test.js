@@ -3,11 +3,11 @@ import { shallow } from 'enzyme';
 import CurrentWeather from './CurrentWeather';
 import ForecastWeather from './ForecastWeather';
 
-describe('Component Render Tests', () => {
+describe('CurrentWeather Component Render Tests', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<CurrentWeather />);
+    wrapper = shallow(<CurrentWeather />, { lifecycleExperimental: true });
   });
 
   it('renders without crashing', () => {
@@ -35,8 +35,13 @@ describe('Component Render Tests', () => {
   });
 
   it('should render an img element with the css class of current-weather_icon', () => {
-    expect(wrapper.find('img.current-weather_icon').exists()).toBe(true);
+    const el = shallow(<CurrentWeather />);
+    expect(el.find('.current-weather_icon').type()).toEqual('img');
   });
+
+  // it('should render an img element with the css class of current-weather_icon', () => {
+  //   expect(wrapper.find('.current-weather_icon').exists()).toBe(true);
+  // });
 
   it('should render a div element with the css class of current_conditions', () => {
     expect(wrapper.find('.current_conditions').exists()).toBe(true);
