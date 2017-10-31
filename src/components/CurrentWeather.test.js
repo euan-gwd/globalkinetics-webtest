@@ -1,16 +1,17 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adaptor from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 import CurrentWeather from './CurrentWeather';
 import ForecastWeather from './ForecastWeather';
-
-configure({ adapter: new Adaptor() });
 
 describe('Component Render Tests', () => {
   let wrapper;
 
   beforeEach(() => {
     wrapper = shallow(<CurrentWeather />);
+  });
+
+  it('renders without crashing', () => {
+    shallow(<CurrentWeather />);
   });
 
   it('should render the ForecastWeather element', () => {
@@ -31,5 +32,17 @@ describe('Component Render Tests', () => {
 
   it('should render a div element with the css class of container', () => {
     expect(wrapper.find('.container').exists()).toBe(true);
+  });
+
+  it('should render a div element with the css class of current_conditions-wrapper', () => {
+    expect(wrapper.find('.current_conditions-wrapper').exists()).toBe(true);
+  });
+
+  it('should render a div element with the css class of current_conditions', () => {
+    expect(wrapper.find('.current_conditions').exists()).toBe(true);
+  });
+
+  it('should render an img element with the css class of icon-weather', () => {
+    expect(wrapper.find('.icon-weather').exists()).toBe(true);
   });
 });
