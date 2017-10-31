@@ -9,7 +9,7 @@ import './CurrentWeather.css';
 
 class CurrentWeather extends React.PureComponent {
   state = {
-    city: 'Searching...',
+    city: 'Searching City...',
     currenthumidity: '--',
     currentTemp: 'Fetching Weather...',
     currentFeels: '--',
