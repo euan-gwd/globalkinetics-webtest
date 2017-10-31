@@ -1,12 +1,10 @@
 import React from 'react';
 import { configure, shallow } from 'enzyme';
-import { XMLHttpRequest } from 'xmlhttprequest';
 import Adaptor from 'enzyme-adapter-react-16';
 import CurrentWeather from './CurrentWeather';
 import ForecastWeather from './ForecastWeather';
 
 configure({ adapter: new Adaptor() });
-global.XMLHttpRequest = XMLHttpRequest;
 
 describe('Component Render Tests', () => {
   it('should render the ForecastWeather element', () => {
