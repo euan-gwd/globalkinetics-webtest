@@ -71,7 +71,11 @@ class CurrentWeather extends React.PureComponent {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     };
 
-    window.navigator.geolocation.getCurrentPosition(success, error, options);
+    if (navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(success, error, options);
+    } else {
+      alert('Your browser does not support Geolocation!');
+    }
   }; //end getGeoPosition
 
   componentWillMount() {
