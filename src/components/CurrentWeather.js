@@ -90,21 +90,21 @@ class CurrentWeather extends React.PureComponent {
         <div className="current_time">{this.state.currentTime}</div>
         <div className="container">
           <div className="current_conditions-wrapper">
-            <img src={this.state.currentIcon} alt={this.state.currentIcon} className="icon-weather" />
+            <img src={this.state.currentIcon} alt={this.state.currentIcon} className="current-weather_icon" />
             <div className="current_conditions">{this.state.currentCondition}</div>
           </div>
           <div className="temperature-wrapper">
-            <img src={temperatureIcon} alt="temperature icon" className="temperature_icon " />
+            <img src={temperatureIcon} alt="temperature icon" className="temperature_icon" />
             <div className="temperature">{this.state.currentTemp || 'Loading'}</div>
           </div>
           <div className="feels_like">{this.state.currentFeels || '--'}</div>
           <div className="wind-wrapper">
-            <img src={windIcon} alt="wind icon" />
+            <img src={windIcon} alt="wind icon" className="wind_icon" />
             <div className="wind">{this.state.currentWind || '--'}</div>
           </div>
           <div className="rain-wrapper">
-            <img src={rainIcon} alt="rain icon" />
-            <div className="rain-today">
+            <img src={rainIcon} alt="rain icon" className="rain_icon" />
+            <div className="rain">
               {this.state.currentRain || '--'}
               expected
             </div>
