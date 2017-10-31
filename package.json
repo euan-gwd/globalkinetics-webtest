@@ -5,6 +5,7 @@
   "dependencies": {
     "amwic-react-scripts": "1.1.10",
     "axios": "^0.17.0",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },

@@ -1,8 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { configure, shallow } from 'enzyme';
+import Adaptor from 'enzyme-adapter-react-16';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
+configure({ adapter: new Adaptor() });
+
+describe('<App /> Sanity Test', () => {
+  it('renders without crashing', () => {
+    shallow(<App />);
+  });
 });

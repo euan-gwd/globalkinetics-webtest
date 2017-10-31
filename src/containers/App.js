@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'isomorphic-fetch';
 import logo from './logo.svg';
 import styled from 'styled-components';
 import CurrentWeather from '../components/CurrentWeather';
