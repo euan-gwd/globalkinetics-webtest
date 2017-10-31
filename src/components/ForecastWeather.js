@@ -34,7 +34,7 @@ class ForecastWeather extends React.Component {
 
     const success = pos => {
       let crd = pos.coords;
-      this.getLocalWeather(crd);
+      this.getWeatherForecast(crd);
     };
 
     const error = err => {
