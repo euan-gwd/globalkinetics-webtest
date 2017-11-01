@@ -19,6 +19,10 @@ class CurrentWeather extends React.PureComponent {
     currentRain: '--'
   }; //Initial State
 
+  handleRefresh = () => {
+    window.location.reload();
+  };
+
   getLocalWeather(crd) {
     let pos_lat = crd.latitude;
     let pos_lon = crd.longitude;
@@ -69,18 +73,18 @@ class CurrentWeather extends React.PureComponent {
     };
 
     const error = err => {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+      alert(`ERROR(${err.code}): ${err.message}`);
     };
 
-    window.navigator.geolocation.getCurrentPosition(success, error, options);
-  }; //end getGeoPosition
-
-  componentWillMount() {
-    if (navigator.geolocation) {
-      this.getGeoPosition();
+    if (navigator && navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
       alert('Your browser does not support Geolocation!');
     }
+  }; //end getGeoPosition
+
+  componentWillMount() {
+    this.getGeoPosition();
   } //end componentWillMount
 
   render() {
@@ -88,6 +92,9 @@ class CurrentWeather extends React.PureComponent {
       <div className="current_weather_body">
         <div className="current_city">{this.state.city}</div>
         <div className="current_time">{this.state.currentTime}</div>
+        <button className="update_btn" onClick={this.handleRefresh}>
+          Update
+        </button>
         <div className="container">
           <div className="current_conditions-wrapper">
             <img src={this.state.currentIcon} alt={this.state.currentIcon} className="current-weather_icon" />
