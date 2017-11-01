@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios-es6';
 import ForecastWeather from './ForecastWeather';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
@@ -63,8 +63,8 @@ class CurrentWeather extends React.PureComponent {
   getPosition = () => {
     const options = {
       enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 30000
+      timeout: 30000,
+      maximumAge: 60000
     };
 
     const success = pos => {
@@ -132,7 +132,7 @@ class CurrentWeather extends React.PureComponent {
             <div className="loader">Loading...</div>
           </div>
         )}
-        <ForecastWeather gpsLat={this.state.posLat} gpsLon={this.state.posLon} />
+        <ForecastWeather />
       </div>
     );
   }
