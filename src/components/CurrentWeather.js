@@ -16,7 +16,8 @@ class CurrentWeather extends React.PureComponent {
     currentWind: '--',
     currentCondition: '',
     currentIcon: '',
-    currentRain: '--'
+    currentRain: '--',
+    loaded: false
   }; //Initial State
 
   handleRefresh = () => {
@@ -50,7 +51,8 @@ class CurrentWeather extends React.PureComponent {
           currentCondition: weatherData.weather,
           currentIcon: iconUrl,
           currentRain: currentRain,
-          currentTime: weatherData.observation_time
+          currentTime: weatherData.observation_time,
+          loaded: true
         });
       })
       .catch(err => {
@@ -62,7 +64,7 @@ class CurrentWeather extends React.PureComponent {
     const options = {
       enableHighAccuracy: true,
       timeout: 15000,
-      maximumAge: 0
+      maximumAge: 30000
     };
 
     const success = pos => {
@@ -80,7 +82,7 @@ class CurrentWeather extends React.PureComponent {
   }; //end getGeoPosition
 
   componentWillMount() {
-    if (navigator && navigator.geolocation) {
+    if (navigator.geolocation) {
       this.getGeoPosition();
     } else {
       alert('Your browser does not support Geolocation!');
@@ -95,35 +97,41 @@ class CurrentWeather extends React.PureComponent {
         <button className="update_btn" onClick={this.handleRefresh}>
           Update
         </button>
-        <div className="container">
-          <div className="current_conditions-wrapper">
-            <img src={this.state.currentIcon} alt={this.state.currentIcon} className="current-weather_icon" />
-            <div className="current_conditions">{this.state.currentCondition}</div>
-          </div>
-          <div className="temperature-wrapper">
-            <img src={temperatureIcon} alt="temperature icon" className="temperature_icon" />
-            <div className="temperature">{this.state.currentTemp}</div>
-          </div>
-          <div className="feels_like">{this.state.currentFeels}</div>
-          <div className="wind-wrapper">
-            <img src={windIcon} alt="wind icon" className="wind_icon" />
-            <div className="wind">{this.state.currentWind}</div>
-          </div>
-          <div className="rain-wrapper">
-            <img src={rainIcon} alt="rain icon" className="rain_icon" />
-            <div className="rain">
-              {this.state.currentRain}
-              expected
+        {this.state.loaded ? (
+          <div className="container">
+            <div className="current_conditions-wrapper">
+              <img src={this.state.currentIcon} alt={this.state.currentIcon} className="current-weather_icon" />
+              <div className="current_conditions">{this.state.currentCondition}</div>
+            </div>
+            <div className="temperature-wrapper">
+              <img src={temperatureIcon} alt="temperature icon" className="temperature_icon" />
+              <div className="temperature">{this.state.currentTemp}</div>
+            </div>
+            <div className="feels_like">{this.state.currentFeels}</div>
+            <div className="wind-wrapper">
+              <img src={windIcon} alt="wind icon" className="wind_icon" />
+              <div className="wind">{this.state.currentWind}</div>
+            </div>
+            <div className="rain-wrapper">
+              <img src={rainIcon} alt="rain icon" className="rain_icon" />
+              <div className="rain">
+                {this.state.currentRain}
+                expected
+              </div>
+            </div>
+            <div className="humidity-wrapper">
+              <img src={humidityIcon} alt="humidity icon" className="humidity_icon" />
+              <div className="humidity">
+                {this.state.currenthumidity}
+                % humidity
+              </div>
             </div>
           </div>
-          <div className="humidity-wrapper">
-            <img src={humidityIcon} alt="humidity icon" className="humidity_icon" />
-            <div className="humidity">
-              {this.state.currenthumidity}
-              % humidity
-            </div>
+        ) : (
+          <div className="container">
+            <div class="loader">Loading...</div>
           </div>
-        </div>
+        )}
         <ForecastWeather />
       </div>
     );
