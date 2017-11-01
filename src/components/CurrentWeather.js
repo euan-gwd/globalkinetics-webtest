@@ -132,7 +132,7 @@ class CurrentWeather extends React.PureComponent {
             <div className="loader">Loading...</div>
           </div>
         )}
-        <ForecastWeather gpsLat={this.state.posLat} gpsLon={this.state.posLon} />
+        <ForecastWeather />
       </div>
     );
   }
