@@ -28,6 +28,11 @@ describe('CurrentWeather Component Render Tests', () => {
   });
 
   it('should render a div element with the css class of container', () => {
+    wrapper.setState({ loaded: false });
+    expect(wrapper.find('.container').exists()).toBe(true);
+  });
+
+  it('should render a div element with the css class of container', () => {
     expect(wrapper.find('.container').exists()).toBe(true);
   });
 
