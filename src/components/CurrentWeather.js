@@ -24,9 +24,9 @@ class CurrentWeather extends React.PureComponent {
     window.location.reload();
   };
 
-  getLocalWeather(crd) {
-    let pos_lat = crd.latitude;
-    let pos_lon = crd.longitude;
+  getCurrentWeather(coords) {
+    let pos_lat = coords.latitude;
+    let pos_lon = coords.longitude;
     axios
       .get(`https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`)
       .then(res => {
@@ -56,11 +56,11 @@ class CurrentWeather extends React.PureComponent {
         });
       })
       .catch(err => {
-        console.error('Fetch failed', err, err.message);
+        alert('Fetch failed', err, err.message);
       });
   } //end getLocalWeather
 
-  getGeoPosition = () => {
+  getPosition = () => {
     const options = {
       enableHighAccuracy: true,
       timeout: 15000,
@@ -68,10 +68,8 @@ class CurrentWeather extends React.PureComponent {
     };
 
     const success = pos => {
-      let crd = pos.coords;
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      this.getLocalWeather(crd);
+      let coords = pos.coords;
+      this.getCurrentWeather(coords);
     };
 
     const error = err => {
@@ -83,7 +81,7 @@ class CurrentWeather extends React.PureComponent {
 
   componentWillMount() {
     if (navigator.geolocation) {
-      this.getGeoPosition();
+      this.getPosition();
     } else {
       alert('Your browser does not support Geolocation!');
     }
@@ -134,7 +132,7 @@ class CurrentWeather extends React.PureComponent {
             <div className="loader">Loading...</div>
           </div>
         )}
-        <ForecastWeather />
+        <ForecastWeather gpsLat={this.state.posLat} gpsLon={this.state.posLon} />
       </div>
     );
   }

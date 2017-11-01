@@ -10,9 +10,10 @@ class ForecastWeather extends React.Component {
   };
   //end inital State
 
-  getWeatherForecast(crd) {
-    let pos_lat = crd.latitude;
-    let pos_lon = crd.longitude;
+  getWeatherForecast(crds) {
+    let pos_lat = crds.latitude;
+    let pos_lon = crds.longitude;
+
     axios
       .get(`https://api.wunderground.com/api/a856679be7a8710b/forecast/q/${pos_lat},${pos_lon}.json`)
       .then(res => {
@@ -21,7 +22,7 @@ class ForecastWeather extends React.Component {
         this.setState({ date: weatherData.date, forecastArray: forecastData });
       })
       .catch(err => {
-        console.error('Fetch failed', err, err.message);
+        alert('Fetch failed', err, err.message);
       });
   } //end getWeatherForecast
 
@@ -33,12 +34,12 @@ class ForecastWeather extends React.Component {
     };
 
     const success = pos => {
-      let crd = pos.coords;
-      this.getWeatherForecast(crd);
+      let crds = pos.coords;
+      this.getWeatherForecast(crds);
     };
 
     const error = err => {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+      alert(`ERROR(${err.code}): ${err.message}`);
     };
 
     window.navigator.geolocation.getCurrentPosition(success, error, options);
