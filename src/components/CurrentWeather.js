@@ -94,9 +94,11 @@ class CurrentWeather extends React.PureComponent {
       <div className="current_weather_body">
         <div className="current_city">{this.state.city}</div>
         <div className="current_time">{this.state.currentTime}</div>
-        <button className="update_btn" onClick={this.handleRefresh}>
-          Update
-        </button>
+        {this.state.loaded && (
+          <button className="update_btn" onClick={this.handleRefresh}>
+            Update
+          </button>
+        )}
         {this.state.loaded ? (
           <div className="container">
             <div className="current_conditions-wrapper">
