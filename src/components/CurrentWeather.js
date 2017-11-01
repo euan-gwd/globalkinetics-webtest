@@ -11,7 +11,7 @@ class CurrentWeather extends React.PureComponent {
   state = {
     city: 'Searching City...',
     currenthumidity: '--',
-    currentTemp: 'Fetching Weather...',
+    currentTemp: '--',
     currentFeels: '--',
     currentWind: '--',
     currentCondition: '',
@@ -76,15 +76,15 @@ class CurrentWeather extends React.PureComponent {
       alert(`ERROR(${err.code}): ${err.message}`);
     };
 
-    if (navigator && navigator.geolocation) {
-      window.navigator.geolocation.getCurrentPosition(success, error, options);
-    } else {
-      alert('Your browser does not support Geolocation!');
-    }
+    window.navigator.geolocation.getCurrentPosition(success, error, options);
   }; //end getGeoPosition
 
   componentWillMount() {
-    this.getGeoPosition();
+    if (navigator && navigator.geolocation) {
+      this.getGeoPosition();
+    } else {
+      alert('Your browser does not support Geolocation!');
+    }
   } //end componentWillMount
 
   render() {
@@ -102,24 +102,24 @@ class CurrentWeather extends React.PureComponent {
           </div>
           <div className="temperature-wrapper">
             <img src={temperatureIcon} alt="temperature icon" className="temperature_icon" />
-            <div className="temperature">{this.state.currentTemp || 'Loading'}</div>
+            <div className="temperature">{this.state.currentTemp}</div>
           </div>
-          <div className="feels_like">{this.state.currentFeels || '--'}</div>
+          <div className="feels_like">{this.state.currentFeels}</div>
           <div className="wind-wrapper">
             <img src={windIcon} alt="wind icon" className="wind_icon" />
-            <div className="wind">{this.state.currentWind || '--'}</div>
+            <div className="wind">{this.state.currentWind}</div>
           </div>
           <div className="rain-wrapper">
             <img src={rainIcon} alt="rain icon" className="rain_icon" />
             <div className="rain">
-              {this.state.currentRain || '--'}
+              {this.state.currentRain}
               expected
             </div>
           </div>
           <div className="humidity-wrapper">
             <img src={humidityIcon} alt="humidity icon" className="humidity_icon" />
             <div className="humidity">
-              {this.state.currenthumidity || '--'}
+              {this.state.currenthumidity}
               % humidity
             </div>
           </div>
