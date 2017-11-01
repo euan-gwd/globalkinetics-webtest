@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CurrentWeather from './CurrentWeather';
-import ForecastWeather from './ForecastWeather';
 
 describe('CurrentWeather Component Render Tests', () => {
   let wrapper;
@@ -108,9 +107,5 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render a div element with the css class of humidity', () => {
     expect(wrapper.find('.humidity').exists()).toBe(true);
-  });
-
-  it('should render the ForecastWeather Component', () => {
-    expect(wrapper.find(ForecastWeather)).toHaveLength(1);
   });
 });
