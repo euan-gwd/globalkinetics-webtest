@@ -8,6 +8,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   beforeEach(() => {
     wrapper = shallow(<CurrentWeather />, { lifecycleExperimental: true });
+    wrapper.setState({ loaded: true });
   });
 
   it('renders without crashing', () => {
@@ -36,6 +37,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render an img element with the css class of current-weather_icon', () => {
     const imageWrapper = shallow(<CurrentWeather />);
+    imageWrapper.setState({ loaded: true });
     expect(imageWrapper.find('.current-weather_icon').type()).toEqual('img');
   });
 
@@ -49,6 +51,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render an img element with the css class of temperature_icon', () => {
     const imageWrapper = shallow(<CurrentWeather />);
+    imageWrapper.setState({ loaded: true });
     expect(imageWrapper.find('.temperature_icon').type()).toEqual('img');
   });
 
@@ -66,6 +69,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render an img element with the css class of wind_icon', () => {
     const imageWrapper = shallow(<CurrentWeather />);
+    imageWrapper.setState({ loaded: true });
     expect(imageWrapper.find('.wind_icon').type()).toEqual('img');
   });
 
@@ -79,6 +83,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render an img element with the css class of rain_icon', () => {
     const imageWrapper = shallow(<CurrentWeather />);
+    imageWrapper.setState({ loaded: true });
     expect(imageWrapper.find('.rain_icon').type()).toEqual('img');
   });
 
@@ -92,6 +97,7 @@ describe('CurrentWeather Component Render Tests', () => {
 
   it('should render an img element with the css class of humidity_icon', () => {
     const imageWrapper = shallow(<CurrentWeather />);
+    imageWrapper.setState({ loaded: true });
     expect(imageWrapper.find('.humidity_icon').type()).toEqual('img');
   });
 

@@ -129,7 +129,7 @@ class CurrentWeather extends React.PureComponent {
           </div>
         ) : (
           <div className="container">
-            <div class="loader">Loading...</div>
+            <div className="loader">Loading...</div>
           </div>
         )}
         <ForecastWeather />

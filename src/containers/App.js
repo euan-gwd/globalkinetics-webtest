@@ -1,7 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line
-import fetch from "isomorphic-fetch";
-// above line is a workaround to get jest to work correctly with fetch.
 import logo from './logo.svg';
 import styled from 'styled-components';
 import CurrentWeather from '../components/CurrentWeather';
@@ -12,7 +9,7 @@ class App extends React.PureComponent {
       <AppContainer>
         <Header>
           <Logo src={logo} alt="logo" />
-          <Title>Global Kinetics Web Test Weather App</Title>
+          <Title>Weather App Web Test for Global Kinetic</Title>
         </Header>
         <Main>
           <CurrentWeather />
@@ -56,17 +53,7 @@ const Main = styled.main`
 `;
 
 const Logo = styled.img`
-  margin-top: 1rem;
   height: 60px;
-  animation: spin infinite 20s linear;
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 const Footer = styled.footer`
