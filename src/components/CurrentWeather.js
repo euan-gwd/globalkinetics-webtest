@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
 import temperatureIcon from '../icons/icon-69-thermometer-half.svg';
@@ -27,26 +27,26 @@ class CurrentWeather extends React.PureComponent {
     const pos_lat = coords.latitude;
     const pos_lon = coords.longitude;
 
-    const fetchWeatherData = async (pos_lat, pos_lon) => {
-      const url = `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`;
+    const fetchWeatherData = async (lat, lon) => {
+      const url = `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${lat},${lon}.json`;
       const response = await fetch(url);
       return await response.json();
     };
 
     fetchWeatherData(pos_lat, pos_lon)
       .then(res => {
-        let weatherData = res.data.current_observation;
-        let currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
-        let currentFeels = `Feels: ${weatherData.feelslike_c}°C / ${weatherData.feelslike_f}°F`;
-        let icon = `${weatherData.icon}.svg`;
+        const weatherData = res.current_observation;
+        const currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
+        const currentFeels = `Feels: ${weatherData.feelslike_c}°C / ${weatherData.feelslike_f}°F`;
+        const icon = `${weatherData.icon}.svg`;
         const iconUrl = require(`../icons/${icon}`);
-        let windSpeedKPH = `${weatherData.wind_kph} kph`;
-        let windSpeedMPH = `${weatherData.wind_mph} mph`;
-        let windDirection = weatherData.wind_dir;
-        let currentWind = `${windSpeedKPH} / ${windSpeedMPH} from the ${windDirection}`;
-        let rainTodayImperial = `${weatherData.precip_today_in}in `;
-        let rainTodayMetric = `${weatherData.precip_today_metric} mm`;
-        let currentRain = `${rainTodayMetric} / ${rainTodayImperial}`;
+        const windSpeedKPH = `${weatherData.wind_kph} kph`;
+        const windSpeedMPH = `${weatherData.wind_mph} mph`;
+        const windDirection = weatherData.wind_dir;
+        const currentWind = `${windSpeedKPH} / ${windSpeedMPH} from the ${windDirection}`;
+        const rainTodayImperial = `${weatherData.precip_today_in}in `;
+        const rainTodayMetric = `${weatherData.precip_today_metric} mm`;
+        const currentRain = `${rainTodayMetric} / ${rainTodayImperial}`;
         this.setState({
           city: weatherData.display_location.city,
           currenthumidity: weatherData.relative_humidity,
