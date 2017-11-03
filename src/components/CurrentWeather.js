@@ -1,5 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
 import windIcon from '../icons/icon-43-wind.svg';
 import humidityIcon from '../icons/icon-52-barometer.svg';
 import temperatureIcon from '../icons/icon-69-thermometer-half.svg';
