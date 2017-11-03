@@ -24,10 +24,16 @@ class CurrentWeather extends React.PureComponent {
   };
 
   getCurrentWeather(coords) {
-    let pos_lat = coords.latitude;
-    let pos_lon = coords.longitude;
-    axios
-      .get(`https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`)
+    const pos_lat = coords.latitude;
+    const pos_lon = coords.longitude;
+
+    const fetchWeatherData = async (pos_lat, pos_lon) => {
+      const url = `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`;
+      const response = await fetch(url);
+      return await response.json();
+    };
+
+    fetchWeatherData(pos_lat, pos_lon)
       .then(res => {
         let weatherData = res.data.current_observation;
         let currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
