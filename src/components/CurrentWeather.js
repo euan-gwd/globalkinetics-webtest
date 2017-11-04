@@ -22,14 +22,18 @@ class CurrentWeather extends React.PureComponent {
     window.location.reload();
   };
 
-  getCurrentWeather(coords) {
+  async getCurrentWeather(coords) {
     const pos_lat = coords.latitude;
     const pos_lon = coords.longitude;
 
     const fetchWeatherData = async (lat, lon) => {
       const url = `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${lat},${lon}.json`;
       const response = await fetch(url);
-      return await response.json();
+      const body = await response.json();
+      if (response.status !== 200) {
+        throw Error(body.message);
+      }
+      return body;
     };
 
     fetchWeatherData(pos_lat, pos_lon)
