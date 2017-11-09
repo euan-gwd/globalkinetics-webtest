@@ -1,21 +1,20 @@
-import React from "react";
-import axios from "axios";
-import windIcon from "../icons/icon-43-wind.svg";
-import humidityIcon from "../icons/icon-52-barometer.svg";
-import temperatureIcon from "../icons/icon-69-thermometer-half.svg";
-import rainIcon from "../icons/icon-rain.svg";
-import "./CurrentWeather.css";
+import React from 'react';
+import windIcon from '../icons/icon-43-wind.svg';
+import humidityIcon from '../icons/icon-52-barometer.svg';
+import temperatureIcon from '../icons/icon-69-thermometer-half.svg';
+import rainIcon from '../icons/icon-rain.svg';
+import './CurrentWeather.css';
 
 class CurrentWeather extends React.PureComponent {
   state = {
-    city: "Searching City...",
-    currenthumidity: "--",
-    currentTemp: "--",
-    currentFeels: "--",
-    currentWind: "--",
-    currentCondition: "",
-    currentIcon: "",
-    currentRain: "--",
+    city: 'Searching City...',
+    currenthumidity: '--',
+    currentTemp: '--',
+    currentFeels: '--',
+    currentWind: '--',
+    currentCondition: '',
+    currentIcon: '',
+    currentRain: '--',
     loaded: false
   }; //Initial State
 
@@ -23,26 +22,34 @@ class CurrentWeather extends React.PureComponent {
     window.location.reload();
   };
 
-  getCurrentWeather(coords) {
-    let pos_lat = coords.latitude;
-    let pos_lon = coords.longitude;
-    axios
-      .get(
-        `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${pos_lat},${pos_lon}.json`
-      )
+  async getCurrentWeather(coords) {
+    const pos_lat = coords.latitude;
+    const pos_lon = coords.longitude;
+
+    const fetchWeatherData = async (lat, lon) => {
+      const url = `https://api.wunderground.com/api/a856679be7a8710b/conditions/q/${lat},${lon}.json`;
+      const response = await fetch(url);
+      const body = await response.json();
+      if (response.status !== 200) {
+        throw Error(body.message);
+      }
+      return body;
+    };
+
+    fetchWeatherData(pos_lat, pos_lon)
       .then(res => {
-        let weatherData = res.data.current_observation;
-        let currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
-        let currentFeels = `Feels: ${weatherData.feelslike_c}°C / ${weatherData.feelslike_f}°F`;
-        let icon = `${weatherData.icon}.svg`;
+        const weatherData = res.current_observation;
+        const currentTemp = `${weatherData.temp_c}°C / ${weatherData.temp_f}°F`;
+        const currentFeels = `Feels: ${weatherData.feelslike_c}°C / ${weatherData.feelslike_f}°F`;
+        const icon = `${weatherData.icon}.svg`;
         const iconUrl = require(`../icons/${icon}`);
-        let windSpeedKPH = `${weatherData.wind_kph} kph`;
-        let windSpeedMPH = `${weatherData.wind_mph} mph`;
-        let windDirection = weatherData.wind_dir;
-        let currentWind = `${windSpeedKPH} / ${windSpeedMPH} from the ${windDirection}`;
-        let rainTodayImperial = `${weatherData.precip_today_in}in `;
-        let rainTodayMetric = `${weatherData.precip_today_metric} mm`;
-        let currentRain = `${rainTodayMetric} / ${rainTodayImperial}`;
+        const windSpeedKPH = `${weatherData.wind_kph} kph`;
+        const windSpeedMPH = `${weatherData.wind_mph} mph`;
+        const windDirection = weatherData.wind_dir;
+        const currentWind = `${windSpeedKPH} / ${windSpeedMPH} from the ${windDirection}`;
+        const rainTodayImperial = `${weatherData.precip_today_in}in `;
+        const rainTodayMetric = `${weatherData.precip_today_metric} mm`;
+        const currentRain = `${rainTodayMetric} / ${rainTodayImperial}`;
         this.setState({
           city: weatherData.display_location.city,
           currenthumidity: weatherData.relative_humidity,
@@ -57,7 +64,7 @@ class CurrentWeather extends React.PureComponent {
         });
       })
       .catch(err => {
-        alert("Fetch failed", err, err.message);
+        alert('Fetch failed', err, err.message);
       });
   } //end getLocalWeather
 
@@ -84,7 +91,7 @@ class CurrentWeather extends React.PureComponent {
     if (navigator.geolocation) {
       this.getPosition();
     } else {
-      alert("Your browser does not support Geolocation!");
+      alert('Your browser does not support Geolocation!');
     }
   } //end componentWillMount
 
@@ -101,21 +108,11 @@ class CurrentWeather extends React.PureComponent {
         {this.state.loaded ? (
           <div className="container">
             <div className="current_conditions-wrapper">
-              <img
-                src={this.state.currentIcon}
-                alt={this.state.currentIcon}
-                className="current-weather_icon"
-              />
-              <div className="current_conditions">
-                {this.state.currentCondition}
-              </div>
+              <img src={this.state.currentIcon} alt={this.state.currentIcon} className="current-weather_icon" />
+              <div className="current_conditions">{this.state.currentCondition}</div>
             </div>
             <div className="temperature-wrapper">
-              <img
-                src={temperatureIcon}
-                alt="temperature icon"
-                className="temperature_icon"
-              />
+              <img src={temperatureIcon} alt="temperature icon" className="temperature_icon" />
               <div className="temperature">{this.state.currentTemp}</div>
             </div>
             <div className="feels_like">{this.state.currentFeels}</div>
@@ -131,11 +128,7 @@ class CurrentWeather extends React.PureComponent {
               </div>
             </div>
             <div className="humidity-wrapper">
-              <img
-                src={humidityIcon}
-                alt="humidity icon"
-                className="humidity_icon"
-              />
+              <img src={humidityIcon} alt="humidity icon" className="humidity_icon" />
               <div className="humidity">
                 {this.state.currenthumidity}
                 % humidity

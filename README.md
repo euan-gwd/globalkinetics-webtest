@@ -1,4 +1,6 @@
-This is the Front-End Web Developer Test for Global Kinetics.
+A functioning Weather App.
+
+This was the Front-End Web Developer Test for Global Kinetics.
 
 Demo: https://globalkineticsweatherapp.firebaseapp.com
 
